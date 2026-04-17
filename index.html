@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1920, initial-scale=1.0"/>
+<title>DAIML Farewell 2026 – GTTC Magadi</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cyan: #00f5ff;
+    --gold: #ffd700;
+    --blue: #0a1628;
+    --navy: #050d1a;
+    --electric: #00bfff;
+    --purple: #7b2fff;
+    --glow-cyan: 0 0 20px #00f5ff, 0 0 40px #00f5ff55;
+    --glow-gold: 0 0 20px #ffd700, 0 0 40px #ffd70055;
+  }
+
+  html, body {
+    width: 1920px; height: 1080px;
+    overflow: hidden;
+    background: var(--navy);
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  /* ── BACKGROUND ── */
+  .bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, #0d2a4a 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, #1a0a3d 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 80%, #051520 0%, transparent 50%),
+                linear-gradient(135deg, #020b18 0%, #050d1a 50%, #0a0520 100%);
+  }
+
+  /* ── GRID LINES ── */
+  .grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+  }
+
+  /* ── AURORA ── */
+  .aurora {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  .aurora-band {
+    position: absolute; width: 200%; height: 300px; border-radius: 50%;
+    filter: blur(80px); opacity: 0.12;
+    animation: auroraDrift 12s ease-in-out infinite alternate;
+  }
+  .aurora-band:nth-child(1) { top: -100px; left: -50%; background: linear-gradient(90deg, var(--cyan), var(--purple)); }
+  .aurora-band:nth-child(2) { bottom: -100px; left: -30%; background: linear-gradient(90deg, var(--gold), var(--electric)); animation-delay: -4s; animation-duration: 15s; }
+  @keyframes auroraDrift {
+    0%   { transform: translateX(0) scaleY(1); opacity: 0.08; }
+    100% { transform: translateX(8%) scaleY(1.3); opacity: 0.18; }
+  }
+
+  /* ── PARTICLES ── */
+  #particles { position: absolute; inset: 0; pointer-events: none; }
+
+  /* ── CIRCUIT LINES SVG ── */
+  .circuit-svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    opacity: 0.18;
+  }
+
+  /* ── LAYOUT ── */
+  .poster {
+    position: relative; width: 1920px; height: 1080px;
+    display: grid;
+    grid-template-columns: 420px 1fr 420px;
+    grid-template-rows: 1fr;
+    z-index: 10;
+  }
+
+  /* ── LEFT PANEL ── */
+  .left-panel {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 20px;
+    gap: 30px;
+  }
+
+  /* Robot SVG */
+  .robot-wrap {
+    position: relative;
+    animation: robotFloat 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(0,245,255,0.5));
+  }
+  @keyframes robotFloat {
+    0%, 100% { transform: translateY(0px) rotate(-1deg); }
+    50% { transform: translateY(-18px) rotate(1deg); }
+  }
+  .robot-svg { width: 260px; }
+
+  /* Neural node left */
+  .neural-left {
+    width: 160px; height: 160px;
+    animation: neuralSpin 20s linear infinite;
+    filter: drop-shadow(0 0 15px rgba(0,245,255,0.4));
+  }
+  @keyframes neuralSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  /* ── CENTER PANEL ── */
+  .center-panel {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 30px 40px;
+    position: relative;
+    text-align: center;
+  }
+
+  /* Glowing top badge */
+  .dept-badge {
+    background: linear-gradient(135deg, rgba(0,245,255,0.1), rgba(123,47,255,0.1));
+    border: 1px solid rgba(0,245,255,0.3);
+    border-radius: 40px;
+    padding: 8px 28px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    color: var(--cyan);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    box-shadow: var(--glow-cyan);
+    animation: badgePulse 3s ease-in-out infinite;
+  }
+  @keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(0,245,255,0.3), 0 0 20px rgba(0,245,255,0.1); }
+    50% { box-shadow: 0 0 25px rgba(0,245,255,0.7), 0 0 50px rgba(0,245,255,0.3); }
+  }
+
+  /* College Logo placeholder */
+  .logo-ring {
+    width: 110px; height: 110px; border-radius: 50%;
+    border: 3px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; margin-bottom: 12px;
+    box-shadow: var(--glow-gold);
+    animation: logoRotateBorder 8s linear infinite;
+    background: radial-gradient(circle, rgba(255,215,0,0.08), transparent);
+  }
+  .logo-ring::before {
+    content: '';
+    position: absolute; inset: -6px; border-radius: 50%;
+    border: 1px dashed rgba(255,215,0,0.3);
+    animation: logoRotateBorder 4s linear infinite reverse;
+  }
+  @keyframes logoRotateBorder {
+    0% { filter: drop-shadow(0 0 8px rgba(255,215,0,0.6)); }
+    50% { filter: drop-shadow(0 0 20px rgba(255,215,0,0.9)); }
+    100% { filter: drop-shadow(0 0 8px rgba(255,215,0,0.6)); }
+  }
+  .logo-inner {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px; font-weight: 900;
+    color: var(--gold); text-align: center;
+    line-height: 1.3; letter-spacing: 1px;
+  }
+
+  /* Farewell headline */
+  .farewell-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px; letter-spacing: 8px;
+    color: rgba(0,245,255,0.7); text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .headline {
+    font-family: 'Orbitron', monospace;
+    font-size: 88px; font-weight: 900;
+    line-height: 0.9;
+    background: linear-gradient(135deg, #ffffff 20%, var(--cyan) 50%, var(--gold) 80%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(0,245,255,0.4));
+    animation: headlineGlow 4s ease-in-out infinite alternate;
+    letter-spacing: -2px;
+  }
+  @keyframes headlineGlow {
+    0%   { filter: drop-shadow(0 0 20px rgba(0,245,255,0.3)); }
+    100% { filter: drop-shadow(0 0 50px rgba(0,245,255,0.7)) drop-shadow(0 0 100px rgba(255,215,0,0.2)); }
+  }
+  .year-tag {
+    font-family: 'Orbitron', monospace;
+    font-size: 96px; font-weight: 900;
+    color: var(--gold);
+    text-shadow: var(--glow-gold);
+    line-height: 0.9;
+    animation: yearPulse 2.5s ease-in-out infinite alternate;
+  }
+  @keyframes yearPulse {
+    0%   { text-shadow: 0 0 20px rgba(255,215,0,0.5), 0 0 60px rgba(255,215,0,0.2); }
+    100% { text-shadow: 0 0 40px rgba(255,215,0,0.9), 0 0 100px rgba(255,215,0,0.4); }
+  }
+
+  /* Divider */
+  .divider {
+    width: 600px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--gold), var(--cyan), transparent);
+    margin: 16px auto;
+    position: relative; overflow: hidden;
+    border-radius: 2px;
+  }
+  .divider::after {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, white, transparent);
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+  @keyframes shimmer { 0% { left: -60%; } 100% { left: 160%; } }
+
+  /* Dept name */
+  .dept-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 22px; font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .dept-name span { color: var(--cyan); }
+
+  /* College name */
+  .college-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px; font-weight: 600;
+    color: rgba(255,215,0,0.8);
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  /* Event info pills */
+  .event-row {
+    display: flex; gap: 16px; margin-top: 20px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .event-pill {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(0,245,255,0.06);
+    border: 1px solid rgba(0,245,255,0.25);
+    border-radius: 30px;
+    padding: 10px 22px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 15px;
+    color: rgba(255,255,255,0.9);
+    animation: pillGlow 3s ease-in-out infinite alternate;
+  }
+  .event-pill:nth-child(2) { animation-delay: -1s; }
+  @keyframes pillGlow {
+    0%   { border-color: rgba(0,245,255,0.2); box-shadow: none; }
+    100% { border-color: rgba(0,245,255,0.6); box-shadow: 0 0 15px rgba(0,245,255,0.2); }
+  }
+  .pill-icon { font-size: 18px; }
+  .pill-label { color: var(--cyan); font-size: 11px; letter-spacing: 2px; display: block; }
+  .pill-value { color: white; font-size: 14px; font-weight: bold; }
+
+  /* Confetti */
+  .confetti-wrap {
+    position: absolute; top: 0; left: 0; right: 0; height: 200px;
+    pointer-events: none; overflow: hidden;
+  }
+  .conf-particle {
+    position: absolute; top: -20px;
+    width: 8px; height: 8px; border-radius: 2px;
+    animation: confFall linear infinite;
+  }
+  @keyframes confFall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(280px) rotate(720deg); opacity: 0; }
+  }
+
+  /* ── RIGHT PANEL ── */
+  .right-panel {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 20px; gap: 30px;
+  }
+
+  .arm-wrap {
+    animation: armPulse 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 25px rgba(0,191,255,0.5));
+  }
+  @keyframes armPulse {
+    0%, 100% { transform: rotate(-3deg) scale(1); }
+    50% { transform: rotate(3deg) scale(1.03); }
+  }
+
+  .brain-wrap {
+    animation: brainSpin 30s linear infinite;
+    filter: drop-shadow(0 0 20px rgba(255,215,0,0.4));
+  }
+  @keyframes brainSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  /* ── BOTTOM BAR ── */
+  .bottom-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 56px;
+    background: linear-gradient(90deg, rgba(0,245,255,0.05), rgba(123,47,255,0.08), rgba(0,245,255,0.05));
+    border-top: 1px solid rgba(0,245,255,0.2);
+    display: flex; align-items: center; justify-content: center; gap: 60px;
+    z-index: 20;
+  }
+  .bottom-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px; color: rgba(0,245,255,0.6);
+    letter-spacing: 3px; text-transform: uppercase;
+    animation: tagBlink 4s ease-in-out infinite;
+  }
+  .bottom-tag:nth-child(2) { animation-delay: -1.3s; }
+  .bottom-tag:nth-child(3) { animation-delay: -2.6s; }
+  @keyframes tagBlink {
+    0%, 100% { opacity: 0.5; } 50% { opacity: 1; }
+  }
+  .bottom-dot { color: var(--gold); font-size: 16px; }
+
+  /* Scanline effect */
+  .scanlines {
+    position: absolute; inset: 0; z-index: 50; pointer-events: none;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    animation: scanMove 8s linear infinite;
+    opacity: 0.5;
+  }
+  @keyframes scanMove { 0% { background-position: 0 0; } 100% { background-position: 0 100px; } }
+
+  /* Typing cursor on badge */
+  .cursor { animation: blink 1s step-end infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* Corner accents */
+  .corner {
+    position: absolute; width: 60px; height: 60px;
+    border-color: var(--cyan); border-style: solid;
+    opacity: 0.4;
+    animation: cornerPulse 3s ease-in-out infinite;
+  }
+  .corner.tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+  .corner.tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: 70px; left: 20px; border-width: 0 0 2px 2px; }
+  .corner.br { bottom: 70px; right: 20px; border-width: 0 2px 2px 0; }
+  @keyframes cornerPulse {
+    0%, 100% { opacity: 0.3; border-color: var(--cyan); }
+    50% { opacity: 0.7; border-color: var(--gold); }
+  }
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND LAYERS -->
+<div class="bg"></div>
+<div class="aurora">
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+</div>
+<div class="grid-lines"></div>
+
+<!-- CIRCUIT SVG BG -->
+<svg class="circuit-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#00f5ff" stroke-width="1" fill="none" opacity="0.6">
+    <!-- Circuit traces -->
+    <path d="M0,200 L200,200 L200,300 L400,300"/>
+    <circle cx="200" cy="200" r="5" fill="#00f5ff" opacity="0.8"/>
+    <circle cx="400" cy="300" r="8" fill="none" stroke="#00f5ff" stroke-width="1.5"/>
+    <path d="M0,400 L100,400 L100,500 L300,500 L300,600"/>
+    <circle cx="100" cy="400" r="4" fill="#00f5ff"/>
+    <path d="M0,700 L150,700 L150,800 L350,800"/>
+    <circle cx="350" cy="800" r="6" fill="none" stroke="#ffd700" stroke-width="1.5"/>
+
+    <!-- Right side -->
+    <path d="M1920,150 L1720,150 L1720,250 L1520,250"/>
+    <circle cx="1720" cy="150" r="5" fill="#00f5ff"/>
+    <path d="M1920,500 L1800,500 L1800,400 L1600,400 L1600,300"/>
+    <circle cx="1800" cy="500" r="4" fill="#ffd700"/>
+    <path d="M1920,750 L1750,750 L1750,850 L1550,850"/>
+    <circle cx="1550" cy="850" r="7" fill="none" stroke="#00f5ff" stroke-width="1.5"/>
+
+    <!-- Center circuit nodes -->
+    <rect x="880" y="30" width="160" height="40" rx="4" stroke="#ffd700" stroke-width="1" fill="none" opacity="0.5"/>
+    <line x1="960" y1="70" x2="960" y2="110" stroke="#ffd700" stroke-width="1" opacity="0.5"/>
+
+    <!-- Bottom circuit -->
+    <path d="M400,1050 L600,1050 L600,980 L900,980"/>
+    <path d="M1520,1050 L1320,1050 L1320,980 L1020,980"/>
+  </g>
+
+  <!-- Animated data pulses -->
+  <circle r="4" fill="#00f5ff" opacity="0.9">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M0,200 L200,200 L200,300 L400,300"/>
+  </circle>
+  <circle r="3" fill="#ffd700" opacity="0.8">
+    <animateMotion dur="5s" repeatCount="indefinite" path="M1920,150 L1720,150 L1720,250 L1520,250"/>
+  </circle>
+  <circle r="3" fill="#00bfff" opacity="0.8">
+    <animateMotion dur="6s" repeatCount="indefinite" path="M0,700 L150,700 L150,800 L350,800"/>
+  </circle>
+</svg>
+
+<!-- PARTICLES CANVAS -->
+<canvas id="particles"></canvas>
+
+<!-- CORNER ACCENTS -->
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<!-- SCANLINES -->
+<div class="scanlines"></div>
+
+<!-- MAIN POSTER LAYOUT -->
+<div class="poster">
+
+  <!-- LEFT: Robot + Neural Net -->
+  <div class="left-panel">
+    <div class="robot-wrap">
+      <svg class="robot-svg" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Robot body -->
+        <defs>
+          <linearGradient id="robotGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1a4a6e"/>
+            <stop offset="100%" stop-color="#0d2a40"/>
+          </linearGradient>
+          <linearGradient id="glowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#00f5ff" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#00f5ff" stop-opacity="0.1"/>
+          </linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- Antenna -->
+        <line x1="100" y1="10" x2="100" y2="30" stroke="#00f5ff" stroke-width="2"/>
+        <circle cx="100" cy="8" r="5" fill="#00f5ff" filter="url(#glow)">
+          <animate attributeName="opacity" values="1;0.3;1" dur="1.2s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Head -->
+        <rect x="55" y="30" width="90" height="70" rx="12" fill="url(#robotGrad)" stroke="#00f5ff" stroke-width="1.5"/>
+        <!-- Eyes -->
+        <ellipse cx="80" cy="60" rx="12" ry="10" fill="#001a2e"/>
+        <ellipse cx="120" cy="60" rx="12" ry="10" fill="#001a2e"/>
+        <ellipse cx="80" cy="60" rx="7" ry="6" fill="#00f5ff" filter="url(#glow)">
+          <animate attributeName="ry" values="6;2;6" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="120" cy="60" rx="7" ry="6" fill="#00f5ff" filter="url(#glow)">
+          <animate attributeName="ry" values="6;2;6" dur="3s" begin="0.1s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- Mouth -->
+        <rect x="70" y="85" width="60" height="8" rx="4" fill="#00f5ff" opacity="0.3"/>
+        <rect x="72" y="87" width="10" height="4" rx="2" fill="#00f5ff">
+          <animate attributeName="x" values="72;82;72" dur="1.5s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- Neck -->
+        <rect x="85" y="100" width="30" height="12" rx="4" fill="#0d2a40" stroke="#00f5ff" stroke-width="1" opacity="0.8"/>
+
+        <!-- Body -->
+        <rect x="40" y="112" width="120" height="110" rx="14" fill="url(#robotGrad)" stroke="#00f5ff" stroke-width="1.5"/>
+        <!-- Chest panel -->
+        <rect x="58" y="125" width="84" height="55" rx="8" fill="#001529" stroke="#00f5ff" stroke-width="1" opacity="0.8"/>
+        <!-- Chest glow lines -->
+        <line x1="65" y1="138" x2="135" y2="138" stroke="#00f5ff" stroke-width="1" opacity="0.5">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        </line>
+        <line x1="65" y1="150" x2="120" y2="150" stroke="#ffd700" stroke-width="1" opacity="0.4">
+          <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="65" y1="162" x2="130" y2="162" stroke="#00f5ff" stroke-width="1" opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.8s" repeatCount="indefinite"/>
+        </line>
+        <!-- Power core -->
+        <circle cx="100" cy="185" r="10" fill="#001529" stroke="#ffd700" stroke-width="1.5"/>
+        <circle cx="100" cy="185" r="6" fill="#ffd700" opacity="0.6">
+          <animate attributeName="r" values="6;4;6" dur="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Left arm -->
+        <rect x="10" y="115" width="28" height="80" rx="10" fill="url(#robotGrad)" stroke="#00f5ff" stroke-width="1">
+          <animateTransform attributeName="transform" type="rotate" values="0 24 155;10 24 155;0 24 155" dur="3s" repeatCount="indefinite"/>
+        </rect>
+        <!-- Right arm (raised) -->
+        <rect x="162" y="115" width="28" height="80" rx="10" fill="url(#robotGrad)" stroke="#00f5ff" stroke-width="1">
+          <animateTransform attributeName="transform" type="rotate" values="0 176 155;-10 176 155;0 176 155" dur="3s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- Legs -->
+        <rect x="60" y="222" width="35" height="80" rx="10" fill="url(#robotGrad)" stroke="#00f5ff" stroke-width="1"/>
+        <rect x="105" y="222" width="35" height="80" rx="10" fill="url(#robotGrad)" stroke="#00f5ff" stroke-width="1"/>
+        <!-- Feet -->
+        <rect x="52" y="294" width="45" height="20" rx="8" fill="#0d2a40" stroke="#00f5ff" stroke-width="1"/>
+        <rect x="103" y="294" width="45" height="20" rx="8" fill="#0d2a40" stroke="#00f5ff" stroke-width="1"/>
+
+        <!-- Joint circles -->
+        <circle cx="24" cy="118" r="6" fill="#00f5ff" opacity="0.6"/>
+        <circle cx="176" cy="118" r="6" fill="#00f5ff" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <!-- ML Graph SVG -->
+    <svg width="180" height="80" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="10,65 30,50 50,55 70,30 90,35 110,15 130,20 150,10 170,5"
+        fill="none" stroke="#00f5ff" stroke-width="2" stroke-linecap="round"/>
+      <polyline points="10,65 30,50 50,55 70,30 90,35 110,15 130,20 150,10 170,5"
+        fill="none" stroke="url(#glowGrad)" stroke-width="4" opacity="0.3"/>
+      <circle cx="70" cy="30" r="4" fill="#ffd700">
+        <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle
